@@ -12,6 +12,11 @@ public class ThreeSum {
 public static void main(String[] args) {
 	int[] input = {-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6};
 	System.out.println(threeSum(input));
+	
+	int[] input2 = {0,1,2};
+	int target=0;
+	
+	System.out.println(threeSumClosest(input2,target));
 }	
 	
 
@@ -61,5 +66,55 @@ public static List<List<Integer>> threeSum(int[] nums) {
     
 }
 
+
+
+
+public static int threeSumClosest(int[] nums, int target) {
+	
+	Arrays.sort(nums);
+	int min=Integer.MAX_VALUE;
+	int min_sum = 0;
+	
+	for(int i=0;i<nums.length;i++) {
+		
+	    int j=i+1;
+	    int sum=0;
+	    int k= nums.length-1;
+	    
+	    
+
+		while(j<k) {
+		
+			sum = nums[i]+nums[j]+nums[k];
+			
+			int diff = Math.abs(target-sum);
+			
+			if(diff==0)
+				return target;
+			
+			if(diff < min) {
+				min=diff;
+				min_sum=sum;
+			}
+			
+		
+			if(sum < target)
+				j++;
+			else
+				k--;
+			
+				
+		}
+		
+	}
+	
+	
+	
+	
+	
+	return min_sum;
+    
+    
+}
 
 }
