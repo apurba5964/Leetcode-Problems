@@ -2,6 +2,16 @@ package com.ub.leetcode;
 
 public class LongestPalindrome {
 	
+	public static void main(String[] args) {
+		System.out.println(count_palindromes("hellolle"));
+		
+		int[] input={ 2, 3, 4, 10, 40 };
+		System.out.println(input.length);
+		for (int i : input) {
+			System.out.print(i+"\t");
+		}
+	}
+	
 	 public String longestPalindrome(String s) {
 		 
 		 int n=s.length();
@@ -45,5 +55,35 @@ public class LongestPalindrome {
 	     
 		 
 	    }
+	 
+	 
+	 public static int count_palindromes(String s) {
+		 
+		 
+		 
+		    String temp = ""; 
+	        StringBuffer temp_string; 
+	        int count = 0; 
+	       
+	        for (int i = 0; i < s.length(); i++) { 
+	            for (int j = i + 1; j <= s.length(); j++) { 
+	                
+	                temp = s.substring(i, j); 
+	                  
+	                    
+	                if (temp.length() >= 2) { 
+	                    
+	                	temp_string = new StringBuffer(temp); 
+	                	temp_string.reverse(); 
+	                    
+	                    if (temp_string.toString().compareTo(temp) == 0) 
+	                        count++; 
+	                } 
+	            } 
+	        } 
+	        
+	        return count+s.length(); 
+		 
+	 }
 
 }
