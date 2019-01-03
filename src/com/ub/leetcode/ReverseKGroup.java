@@ -66,7 +66,7 @@ public class ReverseKGroup {
 			curr = nxt;
 		}
 		
-		
+		node1.next = node2;
 		
 		return prev;
         
