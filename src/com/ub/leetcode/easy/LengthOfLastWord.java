@@ -2,6 +2,7 @@
 https://leetcode.com/problems/length-of-last-word
 https://leetcode.com/problems/plus-one/
 https://leetcode.com/problems/add-binary/
+https://leetcode.com/problems/sqrtx/
 */
 package com.ub.leetcode.easy;
 
@@ -15,11 +16,13 @@ public class LengthOfLastWord {
 		int[] input = {2,1,2,9};
 		int[] result = plusOne(input);
 		for (int i : result) {
-			System.out.println(i);
+			System.out.print(i);
 		}
 		
+		System.out.println(" ");
 		System.out.println(addBinary("11","01"));
 		
+		System.out.println(mySqrt(100));
 	}
 	
     public static int lengthOfLastWord(String s) {
@@ -77,6 +80,19 @@ public class LengthOfLastWord {
     	
 		return result;
         
+    }
+    
+    public static int mySqrt(int x) {
+    	
+    	
+    	long r=x;
+    	while(r*r>x) {
+    	
+    		r=(r+(x/r))/2;
+    
+    	}
+    	
+    	return (int)r;
     }
 
 }
