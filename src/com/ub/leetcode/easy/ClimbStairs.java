@@ -48,5 +48,70 @@ public class ClimbStairs {
 		return head;
         
     }
+    
+    
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+    	int[] nums3=new int[m+n];
+    	
+    	int i=0,j=0,k=0;
+    	while(i<nums3.length && j<m && k<n) {
+    		if(nums1[j]<nums2[k]) {
+    			nums3[i]=nums1[j];
+    			i++;
+    			j++;
+    		}else {
+    			nums3[i]=nums2[k];
+    			i++;
+    			k++;
+    			
+    		}
+    		
+    	}
+    	
+    	while(k<n) {
+    		nums3[i]=nums2[k];
+    		i++;
+    		k++;
+    	}
+    	
+    	while(j<m) {
+    		nums3[i]=nums1[j];
+    		i++;
+    		j++;
+    	}
+	 
+	 nums1 = nums3;
+	 
+        
+    }
+    
+    public void merge1(int[] nums1, int m, int[] nums2, int n) {
+    	int k =m+n-1;
+    	int i=m-1;
+    	int j=n-1;
+    	
+    	while(i>=0 && j>=0 ) {
+    		
+    		if(nums1[i]>nums2[j]) {
+    			nums1[k]=nums1[i];
+    			i--;k--;
+    			
+    		}else {
+    			nums1[k]=nums2[j];
+    			j--;k--;
+    		}
+    		
+    		
+    		
+    	}
+    	
+    	while(j>=0) {
+			nums1[k]=nums2[j];
+			k--;j--;
+		}
+    	
+    	
+    	
+    }
 
 }
