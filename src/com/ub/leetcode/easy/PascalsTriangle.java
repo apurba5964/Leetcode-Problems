@@ -1,6 +1,8 @@
 /*
 https://leetcode.com/problems/pascals-triangle/
 https://leetcode.com/problems/pascals-triangle-ii/submissions/
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
 */
 package com.ub.leetcode.easy;
 
@@ -23,6 +25,11 @@ public class PascalsTriangle {
 		for(int y : getPascalRow(3)) {
 			System.out.print(y);
 		}
+		
+		int[] prices = {7,1,5,3,6,4};
+		System.out.println(" ");
+		System.out.println(maxProfit(prices));
+		System.out.println(maxProfit2(prices));
 	}
 	
 	    public static List<List<Integer>> generatePascalsTriangle(int numRows) {
@@ -103,4 +110,47 @@ public class PascalsTriangle {
 	    	return result.get(rowIndex);
 	        
 	    }
+	    
+	    
+	    public static int maxProfit(int[] prices) {
+	    	
+	    	int minPrice = Integer.MAX_VALUE,max=0;
+	    	
+	    	for (int price : prices) {
+				minPrice=Math.min(minPrice, price);
+				max= Math.max(max, price-minPrice);
+	    		
+	    		
+			}
+	    	
+	    	
+	    	
+			return max;
+	    	
+	    	
+	    	
+	    }
+	    
+       public static int maxProfit2(int[] prices) {
+	    	
+	    	int max=0;
+	    	
+	    	
+	    	
+	    	for(int i=1;i<prices.length;i++) {
+	    		
+	    		if(prices[i]>prices[i-1]) {
+	    			max=max+(prices[i]-prices[i-1]);
+	    			
+	    		}
+	    	}
+	    	
+	    	
+	    	
+			return max;
+	    	
+	    	
+	    	
+	    }
+	    
 }
