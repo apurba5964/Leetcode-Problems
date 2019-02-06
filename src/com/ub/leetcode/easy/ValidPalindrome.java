@@ -4,6 +4,7 @@ https://leetcode.com/problems/single-number/
 https://leetcode.com/problems/missing-number/
 https://leetcode.com/problems/linked-list-cycle/
 https://leetcode.com/problems/happy-number/
+https://leetcode.com/problems/intersection-of-two-linked-lists/
 */
 package com.ub.leetcode.easy;
 
@@ -123,5 +124,33 @@ public class ValidPalindrome {
 	
         
     }
+   
+   public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+	 
+	   if(headA == null || headB == null) return null;
+	   ListNode tempA = headA;
+	   ListNode tempB = headB;
+	   
+	   while(tempA!=tempB) {
+		   
+		   
+		   
+		   if(tempA==null)
+			   tempA=headB;
+		   else
+			   tempA=tempA.next;
+		   
+		   if(tempB==null)
+			   tempB=headA;
+		   else
+			   tempB=tempB.next;
+		   
+	   }
+	   
+	      
+	   
+	return tempA;
+       
+   }
 
 }
