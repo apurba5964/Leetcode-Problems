@@ -3,6 +3,7 @@ https://leetcode.com/problems/valid-palindrome/
 https://leetcode.com/problems/single-number/
 https://leetcode.com/problems/missing-number/
 https://leetcode.com/problems/linked-list-cycle/
+https://leetcode.com/problems/happy-number/
 */
 package com.ub.leetcode.easy;
 
@@ -28,6 +29,7 @@ public class ValidPalindrome {
 		int[] input1 = { 9, 6, 4, 2, 3, 5, 7, 0, 1 };
 		System.out.println(singleNumber(input));
 		System.out.println(missingNumber(input1));
+		System.out.println(isHappy(19));
 	}
 
 	public static boolean isPalindrome(String s) {
@@ -93,5 +95,33 @@ public class ValidPalindrome {
 		}
 		return false;
 	}
+	
+   public static  boolean isHappy(int n) {
+	if(n==0)
+		return false;
+	   
+	if(n == 1 || n == 7) return true;
+    if(n>1 && n<10)
+		return false;
+		
+	int sum = 0;
+	
+    while(n>0) {
+    	int temp = n % 10;
+    	sum = sum + temp*temp;
+    	n=n/10;
+    	}
+    System.out.println(sum);
+    if(sum==1)
+    	return true;
+    else
+    	return isHappy(sum);
+    
+    
+   
+	   
+	
+        
+    }
 
 }
