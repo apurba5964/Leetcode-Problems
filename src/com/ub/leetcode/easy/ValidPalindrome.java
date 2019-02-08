@@ -5,6 +5,7 @@ https://leetcode.com/problems/missing-number/
 https://leetcode.com/problems/linked-list-cycle/
 https://leetcode.com/problems/happy-number/
 https://leetcode.com/problems/intersection-of-two-linked-lists/
+https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 */
 package com.ub.leetcode.easy;
 
@@ -150,6 +151,31 @@ public class ValidPalindrome {
 	      
 	   
 	return tempA;
+       
+   }
+   
+   public int[] twoSum(int[] numbers, int target) {
+	   
+	   int i=0;
+	   int j=numbers.length-1;
+	   int [] result = new int[2];
+	   
+	   while(i<j) {
+		   int sum = numbers[i]+numbers[j];
+		   
+		   if(sum == target) {
+			   result[0]=i;
+			   result[1]=j;
+			   return result;
+		   }
+			   
+		   if(sum>target)
+			   j--;
+		   else
+			   i++;
+	   }
+	   
+	   return result;
        
    }
 
