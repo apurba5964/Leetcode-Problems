@@ -1,6 +1,6 @@
 /*
 https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
-
+https://leetcode.com/problems/excel-sheet-column-title/
 */
 package com.ub.leetcode.easy;
 
@@ -16,7 +16,7 @@ public class TwoSumBST {
 		  }
 
 	public static void main(String[] args) {
-		
+		System.out.println(convertToTitle(26));
 	}
 	
     public boolean findTarget(TreeNode root, int k) {
@@ -66,6 +66,19 @@ public class TwoSumBST {
 		
 		
 	}
+	
+    public static String convertToTitle(int n) {
+	
+    	String result = "";
+    	while(n!=0) {
+    		result = (char) ('A'+ (n-1)%26) + result;
+    		n = (n-1)/26;
+    	}
+	
+	
+	return result;
+        
+    }
     
    
 }
