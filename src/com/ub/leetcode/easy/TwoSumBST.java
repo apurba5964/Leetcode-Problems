@@ -3,11 +3,13 @@ https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
 https://leetcode.com/problems/excel-sheet-column-title/
 https://leetcode.com/problems/majority-element/
 https://leetcode.com/problems/excel-sheet-column-number/
+https://leetcode.com/problems/self-dividing-numbers/
 */
 package com.ub.leetcode.easy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TwoSumBST {
 	
@@ -21,6 +23,7 @@ public class TwoSumBST {
 	public static void main(String[] args) {
 		System.out.println(convertToTitle(26));
 		System.out.println(convertToNumber("ZY"));
+		System.out.println(selfDividingNumbers(1,22));
 	}
 	
     public boolean findTarget(TreeNode root, int k) {
@@ -106,5 +109,35 @@ public class TwoSumBST {
        return nums[nums.length/2];
     }
     
+   
+   public static List<Integer> selfDividingNumbers(int left, int right) {
+	
+	   ArrayList<Integer> result = new ArrayList<>();
+	   
+	for(int i=left;i<=right;i++) {
+		int temp1 = 0,temp2 = 0;
+		int number = i;
+		while(number>0) {
+			temp1++;
+			int temp = number % 10;
+			if(temp != 0) {
+				if(i % temp==0)
+					temp2++;
+				
+			}
+				
+			
+			number = number/10;
+				
+		}
+		if(temp1==temp2)
+			result.add(i);
+		
+	}   
+	   
+	   
+	return result;
+       
+   }
    
 }
