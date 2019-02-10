@@ -1,10 +1,12 @@
 /*
 https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
 https://leetcode.com/problems/excel-sheet-column-title/
+https://leetcode.com/problems/majority-element/
 */
 package com.ub.leetcode.easy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TwoSumBST {
 	
@@ -78,6 +80,13 @@ public class TwoSumBST {
 	
 	return result;
         
+    }
+    
+    
+   public static  int majorityElement(int[] nums) {
+	   
+       Arrays.sort(nums);
+       return nums[nums.length/2];
     }
     
    
