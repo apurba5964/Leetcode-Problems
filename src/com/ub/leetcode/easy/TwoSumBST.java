@@ -5,6 +5,7 @@ https://leetcode.com/problems/majority-element/
 https://leetcode.com/problems/excel-sheet-column-number/
 https://leetcode.com/problems/self-dividing-numbers/
 Sort String of dates of the form dd mmm yyy
+https://leetcode.com/problems/factorial-trailing-zeroes/
 */
 package com.ub.leetcode.easy;
 
@@ -34,6 +35,7 @@ public class TwoSumBST {
 		input.add("12 Dec 1968");
 		input.add("12 Jan 1968");
 		sortDates(input);
+		System.out.println(trailingZeroes(1808548329));
 	}
 	
     public boolean findTarget(TreeNode root, int k) {
@@ -297,6 +299,11 @@ public class TwoSumBST {
 	    }
 	}
   
+   public static int trailingZeroes(int n) {
+	   
+	   return n==0 ? 0: n/5 + trailingZeroes(n/5);
+   }
+ 
   
    
 }
