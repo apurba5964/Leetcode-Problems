@@ -2,11 +2,19 @@
 https://leetcode.com/problems/rotate-array/
 https://leetcode.com/problems/reverse-bits/
 https://leetcode.com/problems/number-of-1-bits/solution/
+https://leetcode.com/problems/remove-linked-list-elements/submissions/
 */
 
 package com.ub.leetcode.easy;
 
+import java.util.List;
+
 public class RotateArray {
+	public class ListNode {
+		      int val;
+		      ListNode next;
+		      ListNode(int x) { val = x; }
+		  }
 	
 	public static void main(String[] args) {
 		
@@ -60,6 +68,41 @@ public class RotateArray {
 	   
 	return bits;
         
+    }
+
+	public ListNode removeElements(ListNode head, int val) {
+		ListNode temp = new ListNode(-1);
+		temp.next = head;
+		ListNode curr = head, prev = temp;
+		while (curr != null) {
+			if (curr.val == val) {
+				prev.next = curr.next;
+			} else {
+				prev = prev.next;
+			}
+			curr = curr.next;
+		}
+		return temp.next;
+	}
+	
+    public int countPrimes(int n) {
+    	boolean[] notPrime = new boolean[n];
+    	int count =0;
+    	for(int i = 2;i<n; i++ ) {
+    		if(!notPrime[i]) {
+    			count++;
+    			for(int j=2;i*j<n;j++) {
+    				notPrime[i*j]=true;
+    				
+    			}
+    		}
+    			
+    		
+    	}
+    	
+    	
+		return count;
+            
     }
 
 }
