@@ -18,6 +18,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
+
 public class TwoSumBST {
 	
 	public class TreeNode {
@@ -304,6 +306,36 @@ public class TwoSumBST {
 	   return n==0 ? 0: n/5 + trailingZeroes(n/5);
    }
  
-  
+   public List<List<Integer>> combinationSum1(int[] candidates, int target) {
+	   
+	   List<List<Integer>> result = new ArrayList<List<Integer>>();
+	   Arrays.sort(candidates);
+	   
+	   backTrack1(result,new ArrayList<>(),candidates,target,0);
+	   
+		
+	
+	   
+	   
+	return result;
+       
+   }
+
+private void backTrack1(List<List<Integer>> result, ArrayList<Integer> arrayList, int[] candidates, int target, int start) {
+	if(target<0)
+		return;
+	else if(target==0)
+		result.add(new ArrayList<>(arrayList));
+	
+	else {
+		for(int i = start;i<candidates.length;i++) {
+			arrayList.add(candidates[i]);
+			backTrack1(result, arrayList, candidates, target-candidates[i], i);
+			arrayList.remove(arrayList.size()-1);
+			
+		}
+	}
+	
+}
    
 }
