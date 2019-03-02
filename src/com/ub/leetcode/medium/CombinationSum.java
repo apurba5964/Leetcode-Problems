@@ -11,6 +11,9 @@ import java.util.List;
 public class CombinationSum {
 	
 	public static void main(String[] args) {
+	
+		char[] input = {'a','a','b','b','c','c','c'}; 
+		System.out.println(compress(input));
 		
 	}
 	
@@ -81,6 +84,46 @@ public class CombinationSum {
 		}
 		return low;
 	    
+	    }
+	    
+	    public static int compress(char[] chars) {
+	    	
+	    	
+	    	//System.out.println(s);
+	    	int i = 0,j = 0 ;
+	    	while (i<chars.length) {
+	    		
+	    		char curr = chars[i];
+	    		int c=0;
+	    			
+	    			
+	    		while(i<chars.length && chars[i]==curr) {
+	    			
+	    			i++;
+	    			c++;
+	    			
+	    			
+	    		}
+	    		chars[j++]=curr;
+	    		if(c!=1)
+	    			for(char count : Integer.toString(c).toCharArray()) 
+	    				chars[j++] = count;
+	    			
+	    		//System.out.println(c);
+	    		//s.replaceAll(s.substring(i+1, j), String.valueOf(c));
+	    		//System.out.println(s.substring(i+1, j));
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    	}
+	    	
+	    	
+			return j;
+	        
 	    }
 
 }
