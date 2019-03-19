@@ -1,6 +1,7 @@
 /*
 https://leetcode.com/problems/combination-sum-ii/
 https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+https://leetcode.com/problems/rotate-image/
 */
 package com.ub.leetcode.medium;
 
@@ -184,5 +185,30 @@ public class CombinationSum {
 
 		return "Neither";
 	}
+	
+   public static  void rotate(int[][] matrix) {
+	   
+	   for(int i=0;i<matrix.length;i++) {
+		   for(int j=i;j<matrix[0].length;j++) {
+			   int temp = matrix[i][j];
+			   matrix[i][j] = matrix[j][i];
+			   matrix[j][i] = temp;
+		   }
+	   }
+	   
+	   int n = matrix.length;
+	   
+	   for(int i=0;i<matrix.length;i++) {
+		   for(int j = i;j < n/2 ; j++) {
+			   
+			   int temp = matrix[i][j];
+			   matrix[i][j] = matrix[i][n-j-1];
+			   matrix[i][n-j-1] = temp;
+		   }
+		   
+		   
+	   }
+        
+    }
 
 }
