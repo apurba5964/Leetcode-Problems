@@ -8,6 +8,7 @@ package com.ub.leetcode.medium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,11 +18,14 @@ public class CombinationSum {
 
 	public static void main(String[] args) {
 
-		char[] input = { 'a', 'a', 'b', 'b', 'c', 'c', 'c' };
+		//char[] input = { 'a', 'a', 'b', 'b', 'c', 'c', 'c' };
 		// System.out.println(compress(input));
-		String input1 = "aabbbc";
-		System.out.println(compress1(input1));
+		//String input1 = "aabbbc";
+		//System.out.println(compress1(input1));
 		// compress2(input1);
+		
+		String[] input = {"eat", "tea", "tan", "ate", "nat", "bat"};
+		groupAnagrams(input);
 	}
 
 	public List<List<Integer>> combinationSum1(int[] candidates, int target) {
@@ -240,6 +244,75 @@ public class CombinationSum {
        }
        
        return result;
+   }
+   
+   public List<Integer> spiralOrder(int[][] matrix) {
+	ArrayList<Integer> result = new ArrayList<>();
+	int n =matrix.length;
+	int left =0,right = n-1,down=n-1,top=0;
+    
+    while(left <= right) {
+    for(int i=left;i<=right;i++) {
+ 	   result.add(matrix[left][i]);
+    }
+    top++;
+    for(int i=top;i<=down;i++) {
+    	result.add(matrix[i][down]);
+ 	  
+    }
+    right--;
+    for(int i=right;i>=left;i--) {
+    	result.add(matrix[down][i]);
+ 	   
+    }
+    down--;
+    
+    for(int i=down;i>=top;i--) {
+    	result.add(matrix[i][left]);
+ 	  
+    }
+    left++;
+    
+    }
+    
+    return result;
+	   
+	   
+	
+       
+   }
+   
+   
+   
+   public static List<List<String>> groupAnagrams(String[] strs) {
+	   
+	   
+	   
+	   
+	   HashMap<String,List<String>> map = new HashMap<>();
+	   
+	   for (String str : strs) {
+		   char [] ch = str.toCharArray();
+		   Arrays.sort(ch);
+		   
+		   if(!map.containsKey(String.valueOf(ch))) {
+			   ArrayList<String> inter = new ArrayList<>();
+			   inter.add(str);
+			   map.put(String.valueOf(ch), inter);
+		   }else {
+			   map.get(String.valueOf(ch)).add(str);
+		   }
+		
+	}
+	  
+	 /*  for (String str : strs) {
+		System.out.println(str);
+	}*/
+	   
+	   
+	   
+	   return new ArrayList<>(map.values());
+       
    }
 
 }
