@@ -3,6 +3,8 @@
 https://leetcode.com/problems/powx-n/
 
 https://www.geeksforgeeks.org/counting-inversions/
+
+https://leetcode.com/problems/jump-game/
 */
 package com.ub.leetcode.medium;
 
@@ -10,8 +12,10 @@ public class Pow {
 
 	public static void main(String[] args) {
 		//System.out.println(pow(2,-1));
-		int arr[] = new int[] { 1, 20, 6, 4, 5 };
-		System.out.println(countInversions(arr));
+		int arr[] = new int[] { 3, 2, 1, 0, 4 };
+		//System.out.println(countInversions(arr));
+		
+		System.out.println(canJump(arr));
 	}
 	
 	public static double pow(double x, int m) {
@@ -92,5 +96,28 @@ public class Pow {
 		
 		return inv_cnt;
 	}
+	
+	
+	
+    public static boolean canJump(int[] nums) {
+    	
+    	boolean result = false;
+        int n = nums.length;
+        int last = nums.length-1;
+        if(n==1)
+        	return true;
+        
+        for(int i = n-1;i>=0;i--) {
+        	if(nums[i]+i>=last) {
+        		last = i;
+        	}
+        }
+        
+        
+    	if(last==0)
+    		return true;
+    	
+    	return result;
+    }
 	
 }
