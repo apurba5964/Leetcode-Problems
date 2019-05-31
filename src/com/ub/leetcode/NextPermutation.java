@@ -11,7 +11,7 @@ public class NextPermutation {
 
 	public static void main(String[] args) {
 		
-		int[] input = {3,2,1};
+		int[] input = {1,2,3};
 		nextPermutation(input);
 
 	}
@@ -50,4 +50,6 @@ public class NextPermutation {
         nums[j] = temp;
     }
 
+    
+    
 }

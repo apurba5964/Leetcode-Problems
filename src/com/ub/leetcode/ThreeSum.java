@@ -10,13 +10,14 @@ import java.util.List;
 public class ThreeSum {
 
 public static void main(String[] args) {
-	int[] input = {-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6};
+	//int[] input = {-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6};
+	int[] input = {-1,0,1,2,-1,-4};
 	System.out.println(threeSum(input));
 	
 	int[] input2 = {0,1,2};
 	int target=0;
 	
-	System.out.println(threeSumClosest(input2,target));
+	//System.out.println(threeSumClosest(input2,target));
 }	
 	
 
@@ -39,17 +40,18 @@ public static List<List<Integer>> threeSum(int[] nums) {
 			sum = nums[i]+nums[j]+nums[k];
 			
 			if(sum==0) {
-				while (j<k && nums[j] == nums[j+1]) j++;
-                while (j<k && nums[k] == nums[k-1]) k--;
+				
 				sumList.add(nums[i]);
 				sumList.add(nums[j]);
 				sumList.add(nums[k]);
 				result.add(sumList);
+				j++;
+				k--;
 			}
 			
 			if(sum<0)
 				j++;
-			else
+			if(sum>0)
 				k--;
 			
 				

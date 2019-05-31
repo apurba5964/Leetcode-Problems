@@ -200,6 +200,8 @@ public class CombinationSum {
 			   matrix[j][i] = temp;
 		   }
 	   }
+	   String s="";
+	   
 	   
 	   int n = matrix.length;
 	   

@@ -10,16 +10,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sun.javafx.scene.traversal.SubSceneTraversalEngine;
+
 public class Backtracking {
 	
 	
 	public static void main(String[] args) {
-		
+		int[] input = {1,2,3,4};
+		List<List<Integer>> x = subsets(input);
+		System.out.println(x);
 		
 	}
 	
 	
-    public List<List<Integer>> subsets(int[] nums) {
+    public static List<List<Integer>> subsets(int[] nums) {
     
     	List<List<Integer>> result = new ArrayList<>();
     	
@@ -31,7 +35,7 @@ public class Backtracking {
     }
 	
 	
-	 private void bactrackSubsets(List<List<Integer>> result, ArrayList<Integer> arrayList, int[] nums, int start) {
+	 private static  void bactrackSubsets(List<List<Integer>> result, ArrayList<Integer> arrayList, int[] nums, int start) {
 		result.add(new ArrayList<>(arrayList));
 		
 		for(int i =start;i<nums.length;i++) {
