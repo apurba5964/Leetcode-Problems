@@ -11,8 +11,9 @@ import java.util.Arrays;
 public class Arrays1 {
 
 	public static void main(String[] args) {
-		int[] input = {5,3,2,1,4};
-		System.out.println(tripletSum(input));
+		int[] input = {-5,3,2,1,-4};
+		//System.out.println(tripletSum(input));
+		System.out.println(kdaneAlgo(input));
 		
 	}
 	
@@ -43,6 +44,23 @@ public class Arrays1 {
 		
 		return count;
 	}
+	
+	public static int kdaneAlgo(int[] array) {
+		int tmax =0;
+		int max=0;
+		
+		for(int i=0;i<array.length;i++) {
+			max = max+ array[i];
+			if(max<0)
+				max=0;
+			if(tmax<max)
+				tmax = max;
+			
+		}
+		
+		return tmax;
+	}
+	
 	
 	
 	
