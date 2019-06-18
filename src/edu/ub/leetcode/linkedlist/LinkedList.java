@@ -1,5 +1,7 @@
 //https://leetcode.com/problems/rotate-list/
-
+//https://leetcode.com/problems/partition-list/
+	
+	
 package edu.ub.leetcode.linkedlist;
 
 
@@ -17,9 +19,7 @@ public class LinkedList {
 }
 	
 	
-	public static void main(String[] args) {
-		
-	}
+	
 	
 	public static ListNode rotateRight(ListNode head, int k) {
         ListNode temp1 = head.next;ListNode prev =null;
@@ -39,6 +39,41 @@ public class LinkedList {
 		
 		return head;
     }
+	
+	 public  ListNode partition(ListNode head, int x) {
+	        
+		 if(head==null || head.next==null)
+			 return head;
+		 
+		 ListNode temp1_head = new ListNode(0);
+		 ListNode temp2_head = new ListNode(0);
+		 ListNode temp1 = temp1_head;
+		 ListNode temp2 = temp2_head;
+		 
+		 
+		 while(head!=null) {
+			 
+			 
+			 if(head.val<x) {
+				 temp1.next=head;
+				 temp1 = temp1.next;
+				 
+			 }else {
+				 temp2.next=head;
+				 temp2=temp2.next;
+				 
+			 }
+			 head = head .next;
+			
+			 
+			 
+		 }
+		 temp2.next=null;
+		 temp1.next= temp2_head.next;
+		 
+		 
+		 return temp1_head.next;
+	    }
 	
 	
 	
