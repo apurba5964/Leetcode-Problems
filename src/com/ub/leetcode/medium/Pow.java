@@ -12,10 +12,10 @@ public class Pow {
 
 	public static void main(String[] args) {
 		//System.out.println(pow(2,-1));
-		int arr[] = new int[] { 3, 2, 1, 0, 4 };
-		//System.out.println(countInversions(arr));
+		int arr[] = new int[] { 3, 5, 8, 2, 7,9,1 };
+		System.out.println(countInversions(arr));
 		
-		System.out.println(canJump(arr));
+		//System.out.println(canJump(arr));
 	}
 	
 	public static double pow(double x, int m) {

@@ -12,6 +12,7 @@ public class String1 {
 		
 		String str = "abcd";
 		
+		
 		//permutataions(str,"");
 		//permutations1(str, 0, str.length()-1);
 		System.out.println(minWindow("aaaaaaaaaaaabbbbbcdd", "abcdd"));
