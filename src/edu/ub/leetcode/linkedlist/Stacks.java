@@ -5,6 +5,8 @@ package edu.ub.leetcode.linkedlist;
 
 import java.util.Stack;
 
+
+
 public class Stacks {
 	
 	
@@ -49,5 +51,57 @@ public class Stacks {
 		}
 		
 	}
+	
+	
+	
+	public int calculate(String s) {
+        int n = s.length();
+        int result  = 0;
+        int number = 0;
+        Stack<Integer> st = new Stack<>();
+        int sign = 1;
+        for(int i =0;i<n;i++){
+            char ch = s.charAt(i);
+            
+            if(Character.isDigit(ch)) {
+            	number= Character.getNumericValue(ch);
+            	
+            }else if (ch == '+') {
+				result += sign * number;
+				sign =1;
+				number=0;
+            	
+			}
+            else if (ch == '-') {
+				result += sign * number;
+				sign = -1;
+				number=0;
+            	
+			}
+            else if (ch == '(') {
+				st.push(result);
+				st.push(sign);
+				sign =1;
+				result =0;
+			}
+            else if (ch == ')') {
+				result += sign * number;
+				number = 0;
+				
+				result *= st.pop();
+				result += st.pop();
+			}
+            	
+            
+        }
+        if(number != 0) 
+        	result += sign * number;
+        	
+        
+        return result;
+    }
+	
+	
+	
 
 }
