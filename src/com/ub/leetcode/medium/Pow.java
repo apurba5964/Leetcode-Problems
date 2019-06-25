@@ -5,6 +5,8 @@ https://leetcode.com/problems/powx-n/
 https://www.geeksforgeeks.org/counting-inversions/
 
 https://leetcode.com/problems/jump-game/
+
+https://leetcode.com/problems/set-matrix-zeroes/
 */
 package com.ub.leetcode.medium;
 
@@ -119,6 +121,51 @@ public class Pow {
     	
     	return result;
     }
+    
+   public void setZeroes(int[][] matrix) {
+	   int m = matrix.length;
+	   int n = matrix[0].length;
+	   Boolean[] rows = new Boolean[m];
+	   Boolean[] cols = new Boolean[n];
+	   
+	   for(int i=0;i<m;i++) {
+		   for(int j=0;j<n;j++) {
+			   if(matrix[i][j]==0) {
+				   rows[i]=true;
+				   cols[j]=true;
+			   }
+				   
+		   }
+	   }
+	   
+	  for(int i=0;i<m;i++) {
+		  if(rows[i]) {
+			  nullifyRow(matrix,i);
+		  }
+	  }
+	  
+	  for(int i=0;i<n;i++) {
+		  if(cols[i]) {
+			  nullifyCol(matrix,i);
+		  }
+	  }
+   
+	   
+    }
+
+private void nullifyRow(int[][] matrix, int i) {
+	for(int j=0;j<matrix[0].length;j++) {
+		matrix[i][j]=0;
+		
+	}
+	
+}
+private void nullifyCol(int[][] matrix, int i) {
+	for(int j=0;j<matrix.length;j++) {
+		matrix[j][i]=0;
+		
+	}	
+}
     
     
     
