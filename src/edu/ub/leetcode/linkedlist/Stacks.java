@@ -1,8 +1,9 @@
 
 //https://www.geeksforgeeks.org/next-greater-element/
-
+//https://leetcode.com/problems/remove-duplicate-letters/
 package edu.ub.leetcode.linkedlist;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 
@@ -101,6 +102,43 @@ public class Stacks {
         return result;
     }
 	
+	
+	
+	public String removeDuplicateLetters(String s) {
+	       HashMap<Character,Integer> map = new HashMap<>(); 
+	       for(int i = 0;i<s.length();i++){
+	           map.put(s.charAt(i),i);
+	       }
+	        char[] result = new char[map.size()];
+	        int start = 0;
+	        for(int i=0;i<result.length;i++){
+	            int end = getMinChar(map);
+	            char min = 'z' +1;
+	            for(int j=start;j<=end;j++){
+	                if(map.containsKey(s.charAt(j)) && s.charAt(j)<min)
+	                {
+	                    min = s.charAt(j);
+	                    start = j+1;
+	                }
+	            }
+	            result[i]=min;
+	            map.remove(min);
+	        }
+	        
+	        
+	        return String.valueOf(result);
+	    }
+	    
+	    public int getMinChar(HashMap<Character,Integer> map){
+	        
+	        int min = Integer.MAX_VALUE;
+	        for(int val : map.values()){
+	            if(min>val)
+	                min=val;
+	        }
+	        
+	        return min;
+	    }
 	
 	
 
