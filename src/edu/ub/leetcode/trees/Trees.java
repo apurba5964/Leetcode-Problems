@@ -113,5 +113,76 @@ public class Trees {
            
            return root;
        }
+       
+       //return paths from root to leaf which sum to given number
+       public List<List<Integer>> pathSum(TreeNode root, int sum) {
+           List<List<Integer>> result = new ArrayList<>();
+           List<Integer> current = new ArrayList<>();
+           hasPathSum(root, sum,result,current);
+           return result;
+       }
+       
+       public void hasPathSum(TreeNode root, int sum,List<List<Integer>> result,
+                                List<Integer> current) {
+          
+   		
+   		if(root==null)
+               return;
+   	
+   	sum = sum - root.val;
+       current.add(root.val);    
+   	
+   	if(root.left==null && root.right == null && sum==0){
+           result.add(new ArrayList(current));
+           current.remove(current.size()-1);
+           return;
+       }
+   		
+   	
+   	if(root.left==null && root.right == null && sum!=0){
+           current.remove(current.size()-1);
+           return;
+       }
+   		
+   	
+   	
+   	 hasPathSum(root.left, sum,result,current);
+        
+        hasPathSum(root.right, sum,result,current);
+           
+        current.remove(current.size()-1);   
+   	
+   	
+
+   	
+       }
+       
+       //Lowest common ancestor
+       public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+           
+           int anc = getAnc(root,p,q);
+           return new TreeNode(anc);
+       }
+       
+       public int getAnc(TreeNode root, TreeNode p, TreeNode q) {
+           if (root == null)
+               return -1;
+           
+           if(root.val==p.val || root.val==q.val)
+               return root.val;
+           
+           
+           int x = getAnc(root.left,p,q);
+           int y = getAnc(root.right,p,q);
+           
+           if ((x==p.val && y==q.val) || (y==p.val && x==q.val))
+               return root.val;
+           if(x==-1 && y!=-1)
+               return y;
+           if(x!=-1 && y==-1)
+               return x;
+        
+           return -1;
+       }
 
 }
