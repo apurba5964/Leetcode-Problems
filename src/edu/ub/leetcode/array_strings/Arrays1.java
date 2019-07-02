@@ -8,13 +8,20 @@ package edu.ub.leetcode.array_strings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class Arrays1 {
 
 	public static void main(String[] args) {
 		int[] input = {-5,3,2,1,-4};
 		//System.out.println(tripletSum(input));
-		System.out.println(kdaneAlgo(input));
+		//System.out.println(kdaneAlgo(input));
+		//int[] result =  distributeCandies(60,4);
+		//for (int i : result) {
+		//	System.out.print(i+" ");
+		//}
+		System.out.println(parseBoolExpr("!(&(!(&(f)),&(t),|(f,f,t)))"));
+		
 		
 	}
 	
@@ -98,6 +105,107 @@ public class Arrays1 {
         
         return arr1.subList(l, l+k);
     }
+	
+	
+	public static int[] distributeCandies(int candies, int num_people) {
+		
+        int[] result = new int[num_people];
+        for(int i=0;i<num_people;i++)
+            result[i]=0;
+        
+        int index = 0;
+        int n = 0;
+        while(candies>0){
+            
+                if(n+1 < candies)
+                    result[index]+=n+1;
+                else
+                    result[index]+=candies;
+            
+            
+            candies = candies-(n+1);
+            n++;
+            
+            index=(index+1)%num_people;
+            
+        }
+        return result;
+    }
+	
+	
+	public static  boolean parseBoolExpr(String expression) {
+        char result = 'f';
+        Stack<Character> op = new Stack<>();
+        
+        Stack<Character> exp = new Stack<>();
+        for(int i=0;i<expression.length();i++){
+            char ch = expression.charAt(i);
+            if(ch!=','){
+                if(ch=='!' || ch=='&' || ch=='|')
+                    op.push(ch);
+                if(ch=='t' || ch=='f' || ch=='(')
+                    exp.push(ch);
+                
+                if(ch==')'){
+                    //op.pop();
+                    char op1 = op.pop();
+                    int n = exp.size();
+                    
+                    
+                    
+                        
+                        if(op1=='&'){
+                        	result = 't';
+                            while(exp.peek()!='('){
+                            char exp1 = exp.pop();
+                            
+                            if(exp1=='f'){
+                            	result = 'f';
+                            	break;
+                              }
+                            
+                            
+                        }
+                           
+                            
+                            exp.pop();
+                            exp.push(result); 
+                        }
+                        
+                        if(op1=='|'){
+                            while(exp.peek()!='('){
+                            char exp1 = exp.pop();
+                            if(exp1=='t'){
+                                result = 't';
+                                break;
+                                }
+                        }
+                            exp.pop();
+                            exp.push(result); 
+                        }
+                    if(op1=='!'){
+                        char temp = exp.pop();
+                        if(temp=='t')
+                            exp.push('f');
+                        else
+                            exp.push('t');
+                    }
+                    
+                   
+                }
+                
+            }
+            
+        }
+        if(exp.peek()=='t')
+            return true;
+        else
+            return false;
+        
+        
+    }
+	
+	
 	
 	
 	
