@@ -20,7 +20,6 @@ public class Heaps {
 	        max = new PriorityQueue<>(Collections.reverseOrder());
 	        min = new PriorityQueue<>();
 	        
-	        
 	    }
 	    
 	    public void addNum(int num) {
@@ -41,4 +40,43 @@ public class Heaps {
 	       
 	    }
 	}
+	
+	//https://leetcode.com/problems/super-ugly-number/
+	public int nthSuperUglyNumber(int n, int[] primes) {
+	     
+        if(n==1)
+            return 1;
+        
+        int[] result = new int[n];
+        result[0]=1;
+        int index=1;
+        int k = primes.length;
+        int[] pindex = new int[k];
+        
+        for(int i=0;i<primes.length;i++)
+             pindex[i]=0;
+             
+            
+            
+        while(index<n){
+            int[] temp = new int[k];
+            int min = Integer.MAX_VALUE;
+           
+            for(int i=0;i<primes.length;i++){
+             temp[i]=result[pindex[i]]*primes[i];
+             if(min>temp[i])
+                 min=temp[i];
+            }
+            result[index++]=min;
+            //System.out.println(min);
+            for(int i=0;i<temp.length;i++){
+                if(min==temp[i])
+                    pindex[i]++;
+            }
+            
+            
+        }
+        
+        return result[n-1];
+    }
 }
