@@ -2,7 +2,11 @@
 //https://leetcode.com/problems/find-median-from-data-stream/
 package edu.ub.leetcode.trees;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 public class Heaps {
@@ -43,7 +47,8 @@ public class Heaps {
 	
 	//https://leetcode.com/problems/super-ugly-number/
 	public int nthSuperUglyNumber(int n, int[] primes) {
-	     
+	    
+		
         if(n==1)
             return 1;
         
@@ -78,5 +83,64 @@ public class Heaps {
         }
         
         return result[n-1];
+    }
+	
+	
+	
+	//https://leetcode.com/problems/top-k-frequent-elements/
+	public List<Integer> topKFrequent(int[] nums, int k) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if(nums.length==1){
+            result.add(nums[0]);
+            return result;
+            }
+        
+        
+        HashMap<Integer,Integer> map = new HashMap<>();
+        PriorityQueue<Map.Entry<Integer,Integer>> pq = new PriorityQueue<Map.Entry<Integer,Integer>>((m1,m2) -> m2.getValue()-m1.getValue());
+        
+        
+        
+        for(int i=0;i<nums.length;i++){
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        
+        pq.addAll(map.entrySet());
+        
+        
+        for(int i=0;i<k;i++){
+            result.add(pq.poll().getKey());
+        }
+            
+        
+        return result;
+    }
+	
+	//https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix
+	
+	
+	public int kthSmallest(int[][] matrix, int k) {
+
+        int n = matrix.length;
+        int len = n*n;
+        int low=0;
+        int high=len-1;
+       // k=n-k;
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        
+        for(int i =low;i<n;i++){
+            for(int j=low;j<n;j++){
+                if(pq.size()==k){
+                    if(pq.peek()>matrix[i][j]){
+                        pq.poll();
+                        pq.add(matrix[i][j]);
+                    }
+                        
+                }else
+                    pq.add(matrix[i][j]);
+            }
+        }
+        
+        return pq.peek();
     }
 }
