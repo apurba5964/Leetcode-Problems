@@ -2,6 +2,7 @@ package edu.ub.leetcode.trees;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class Trees {
@@ -184,5 +185,39 @@ public class Trees {
         
            return -1;
        }
+       
+       
+       //https://leetcode.com/problems/delete-nodes-and-return-forest/
+       public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+    	     List<TreeNode> res = new ArrayList<>();
+    	     HashSet<Integer> delSet = new HashSet<>();   
+    	     for(int val:to_delete){
+    	         delSet.add(val);
+    	     }
+    	        delete(root,res,delSet);
+    	        if(!delSet.contains(root.val))
+    	            res.add(root);
+    	        
+    	        return res;
+    	    }
+    	    
+    	    public TreeNode delete(TreeNode root,List<TreeNode> res,HashSet<Integer> delSet){
+    	        
+    	       if(root==null)
+    	           return null;
+    	        root.left = delete(root.left,res,delSet);
+    	        root.right = delete(root.right,res,delSet);
+    	        
+    	        if(delSet.contains(root.val)){
+    	            if(root.left!=null)
+    	                res.add(root.left);
+    	            if(root.right!=null)
+    	                res.add(root.right);
+    	            return null;
+    	        }
+    	        
+    	        
+    	        return root;
+    	    }
 
 }

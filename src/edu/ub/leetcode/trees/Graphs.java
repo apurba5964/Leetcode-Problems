@@ -32,6 +32,45 @@ public Node cloneGraph(Node node) {
 }
     
     
+public static final int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
+public int longestIncreasingPath(int[][] matrix) {
+    if(matrix.length==0)
+        return 0;
+    int[][] visited = new int[matrix.length][matrix[0].length];
+    int m= matrix.length;
+    int n = matrix[0].length;
+    
+    int result = 1;
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+        int count = doDfS(matrix,visited,i,j,m,n);
+        result= Math.max(result,count);    
+        }
+    }
+    
+    
+    return result;
+}
+
+//https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+public int doDfS(int[][] matrix,int[][] visited,int i,int j,int m,int n){
+  
+    if(visited[i][j]!=0)
+        return visited[i][j];
+    int count1 = 1;
+    for(int[] dir : dirs){
+        int x= i+dir[0];
+        int y= j+dir[1];
+        if(x<0 || y<0 || x>=m || y>=n || matrix[x][y]<=matrix[i][j])
+            continue;
+        int dist = 1 + doDfS(matrix,visited,x,y,m,n);
+        
+        count1=Math.max(dist,count1);
+    }
+    
+    visited[i][j]=count1;
+    return count1;
+}
 
 }
