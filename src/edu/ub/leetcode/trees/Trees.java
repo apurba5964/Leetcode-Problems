@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import edu.ub.leetcode.linkedlist.LinkedList.ListNode;
+
 public class Trees {
 	
 	public class TreeNode {
@@ -241,6 +243,43 @@ public class Trees {
     	        
     	        max = Math.max(max,left+right+root.val);
     	        return root.val+Math.max(left,right);
-    	    } 	    
+    	    } 	 
+    	    
+    	    //https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
+    	    public TreeNode sortedListToBST(ListNode head) {
+    	        if(head==null)
+    	            return null;
+    	        
+    	       
+    	        ListNode mid = getMiddleElement(head);
+    	        TreeNode root = new TreeNode(mid.val);
+    	        if(head==mid)
+    	            return root;
+    	        root.left = sortedListToBST(head);
+    	      
+    	        root.right = sortedListToBST(mid.next);
+    	    
+    	        return root;
+    	    }
+    	    
+    	    public ListNode getMiddleElement(ListNode head){
+    	        
+    	        ListNode fast = head;
+    	        ListNode slow = head;
+    	        ListNode prev = null;
+    	        
+    	        while(fast!=null && fast.next!=null){
+    	            prev=slow;
+    	            slow=slow.next;
+    	            fast=fast.next.next;
+    	           
+    	            
+    	        }
+    	        if (prev != null) {
+    	                prev.next = null;
+    	            }
+    	        return slow;
+    	    }
+    	    
 
 }

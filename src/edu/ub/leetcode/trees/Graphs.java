@@ -2,8 +2,11 @@ package edu.ub.leetcode.trees;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class Graphs {
 	
@@ -71,6 +74,62 @@ public int doDfS(int[][] matrix,int[][] visited,int i,int j,int m,int n){
     
     visited[i][j]=count1;
     return count1;
+}
+
+
+//https://leetcode.com/problems/word-ladder/
+
+public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+    if(beginWord.equals(endWord))
+        return 1;
+    Queue<String> q = new LinkedList<>();
+    q.add(beginWord);
+    HashSet<String> visited = new HashSet<>();
+    HashSet<String> wl = new HashSet<>();
+    for(String s:wordList){
+        wl.add(s);
+    }
+    if(!wl.contains(endWord))
+        return 0;
+    
+    wl.remove(beginWord);
+    visited.add(beginWord);
+    int dist = 2;
+    
+    while(!q.isEmpty()){
+        int sz = q.size();
+    
+        for(int j=0; j<sz; j++) {
+        String s1 = q.poll();
+        
+        
+        for(int i=0;i<s1.length();i++){
+            char[] chars = s1.toCharArray();
+            for(char c = 'a';c<='z';c++){
+                chars[i]=c;
+                String newStr = new String(chars);
+                if(newStr.equals(endWord))
+                        return dist;
+                
+                if(!visited.contains(newStr)){
+                   
+                    visited.add(newStr);
+                    
+                    if(wl.contains(newStr))
+                        q.add(newStr);
+                    
+                    
+                }
+                
+            }
+           
+        }
+        }
+       
+         dist++;
+    }
+ 
+    return 0;
 }
 
 }
