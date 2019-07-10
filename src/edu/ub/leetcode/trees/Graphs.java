@@ -172,4 +172,51 @@ public void doDFS(char[][] grid,int x,int y){
     }    
     
 }
+
+
+
+
+
+//https://leetcode.com/problems/max-area-of-island/
+int k;
+public int maxAreaOfIsland(int[][] grid) {
+    if(grid.length==0)
+        return 0;
+    
+    m = grid.length;
+    n = grid[0].length;
+   
+    int result=0;
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(grid[i][j]==1){
+                k=0;
+                doDFS(grid,i,j);
+                result=Math.max(result,k);
+                
+            }
+            
+           
+        }
+    }
+    
+    return result;
+}
+
+
+public void doDFS(int[][] grid,int x,int y){
+    if(x<0 || y<0 || x>=m || y>=n || grid[x][y]!=1)
+        return;
+    
+    grid[x][y]=0;
+    //System.out.println(k);
+    k++;
+   // k=Math.max(k,c);
+    for(int[] dir:dirs){
+        doDFS(grid,x+dir[0],y+dir[1]);
+    }    
+    
+    
+}
+
 }
