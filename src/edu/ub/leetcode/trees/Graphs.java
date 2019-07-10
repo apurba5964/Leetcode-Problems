@@ -83,6 +83,7 @@ public int ladderLength(String beginWord, String endWord, List<String> wordList)
     if(beginWord.equals(endWord))
         return 1;
     Queue<String> q = new LinkedList<>();
+    
     q.add(beginWord);
     HashSet<String> visited = new HashSet<>();
     HashSet<String> wl = new HashSet<>();
@@ -132,4 +133,43 @@ public int ladderLength(String beginWord, String endWord, List<String> wordList)
     return 0;
 }
 
+
+
+
+//https://leetcode.com/problems/number-of-islands/
+int m;
+int n;
+public int numIslands(char[][] grid) {
+    if(grid.length==0)
+        return 0;
+    
+    m = grid.length;
+    n = grid[0].length;
+   
+    int result=0;
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            if(grid[i][j]=='1'){
+                doDFS(grid,i,j);
+                ++result;
+            }
+            
+           
+        }
+    }
+    
+    return result;
+}
+
+
+public void doDFS(char[][] grid,int x,int y){
+    if(x<0 || y<0 || x>=m || y>=n || grid[x][y]!='1')
+        return;
+    
+    grid[x][y]='0';
+    for(int[] dir:dirs){
+        doDFS(grid,x+dir[0],y+dir[1]);
+    }    
+    
+}
 }
