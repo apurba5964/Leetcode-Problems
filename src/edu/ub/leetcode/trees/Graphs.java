@@ -215,7 +215,75 @@ public void doDFS(int[][] grid,int x,int y){
     for(int[] dir:dirs){
         doDFS(grid,x+dir[0],y+dir[1]);
     }    
+   
     
+    
+}
+
+//https://leetcode.com/problems/satisfiability-of-equality-equations
+public boolean equationsPossible(String[] equations) {
+    
+    int[] map = new int[26];
+    
+    for(int i=0;i<26;i++)
+        map[i]=i;
+    
+    for(String s: equations){
+        char ch1 = s.charAt(0);
+        char ch2 = s.charAt(1);
+        char ch3 = s.charAt(3);
+        
+        if(ch2=='='){
+            int i = ch1-'a';
+            int j = ch3-'a';
+            markAsSame(map,i,j);
+        }else{
+           int i = ch1-'a';
+           int j = ch3-'a';
+           if(map[i]==map[j])
+               return false;
+        }
+        
+    
+        
+    }
+    
+    for(String s: equations){
+        char ch1 = s.charAt(0);
+        char ch2 = s.charAt(1);
+        char ch3 = s.charAt(3);
+        
+        if(ch2=='!'){
+           
+           int i = ch1-'a';
+           int j = ch3-'a';
+           if(map[i]==map[j])
+               return false;
+        }
+        
+    
+        
+    }
+    
+    return true;
+}
+
+
+public void markAsSame(int[] map,int i,int j){
+    int min = Math.min(i,j);
+    int temp1 = map[i];
+    int temp2 = map[j];
+    map[i]=min;
+    map[j]=min;
+   
+    
+    for(int k=0;k<26;k++){
+        if(map[k]==i || map[k]==j || map[k]==temp1|| map[k]==temp2){
+            map[k]=min;
+        }
+            
+    }
+    //System.out.println(map[0]+" "+i+" "+j);    
     
 }
 
