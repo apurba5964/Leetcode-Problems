@@ -222,7 +222,8 @@ public void doDFS(int[][] grid,int x,int y){
 
 //https://leetcode.com/problems/satisfiability-of-equality-equations
 public boolean equationsPossible(String[] equations) {
-    
+	ArrayList<Integer> res = new ArrayList<>();
+	
     int[] map = new int[26];
     
     for(int i=0;i<26;i++)
@@ -286,5 +287,62 @@ public void markAsSame(int[] map,int i,int j){
     //System.out.println(map[0]+" "+i+" "+j);    
     
 }
+
+
+
+
+
+
+//https://leetcode.com/problems/course-schedule-ii/
+public int[] findOrder(int numCourses, int[][] prerequisites) {
+	 
+    int[] res = new int[numCourses];
+    int[] indeg = new int[numCourses];
+    Queue<Integer> q = new LinkedList<>();
+    HashMap<Integer,ArrayList<Integer>> map = new HashMap<Integer,ArrayList<Integer>>();
+    
+    
+    for(int[] preq: prerequisites){
+      ArrayList<Integer> temp = map.getOrDefault(preq[1],new ArrayList<Integer>());
+        temp.add(preq[0]);
+        map.put(preq[1],temp);
+        indeg[preq[0]]++;
+    }
+    
+    for(int i=0;i<indeg.length;i++){
+        if(indeg[i]==0)
+            q.add(i);
+    }
+   
+        
+    
+    int n=0;
+    while(!q.isEmpty()){
+        int course = q.poll();
+        
+        if(map.containsKey(course)){
+            ArrayList<Integer> temp = map.get(course);
+            for(int i:temp){
+                 indeg[i]--;
+                 if(indeg[i]==0)
+                     q.add(i);
+            }
+               
+            
+        }
+        //System.out.println(course);
+        res[n++]=course;
+        
+    }
+    //System.out.println(n);
+   
+    if(n==numCourses)
+        return res;
+    else
+        return new int[0];
+    
+   
+}
+
 
 }
