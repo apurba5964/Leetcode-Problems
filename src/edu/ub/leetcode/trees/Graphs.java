@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Graphs {
@@ -341,8 +342,40 @@ public int[] findOrder(int numCourses, int[][] prerequisites) {
     else
         return new int[0];
     
-   
+    
 }
+
+//https://leetcode.com/problems/reconstruct-itinerary/
+LinkedList<String> q = new LinkedList<>();
+
+public List<String> findItinerary(List<List<String>> tickets) {
+ 
+    HashMap<String,PriorityQueue<String>> map = 
+        new HashMap<String,PriorityQueue<String>>();
+    
+    for(List<String> s: tickets){
+     PriorityQueue<String> list = map.getOrDefault(s.get(0),new PriorityQueue<String>());
+        list.add(s.get(1));
+        map.put(s.get(0),list);
+    }
+    
+    
+   // q.add("JFK");
+    doDFS(map,"JFK");
+    
+    return q;
+}
+
+
+public void doDFS(HashMap<String,PriorityQueue<String>> map,String src){
+    
+    while(map.containsKey(src) && !map.get(src).isEmpty()){
+        doDFS(map,map.get(src).poll());
+    }
+    q.addFirst(src);
+}
+
+
 
 
 }

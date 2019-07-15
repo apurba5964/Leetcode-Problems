@@ -8,6 +8,7 @@ package edu.ub.leetcode.array_strings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 public class Arrays1 {
@@ -86,6 +87,7 @@ public class Arrays1 {
 	public List<Integer> findClosestElements(int[] arr, int k, int x) {
         
 		List<Integer> arr1 = new ArrayList<Integer>();
+		
 		for (int i : arr)
 		{
 			arr1.add(i);
@@ -134,6 +136,9 @@ public class Arrays1 {
 	
 	
 	public static  boolean parseBoolExpr(String expression) {
+		PriorityQueue<Integer> res = new PriorityQueue<>();
+		//res.remove(1);
+		
         char result = 'f';
         Stack<Character> op = new Stack<>();
         
@@ -206,7 +211,36 @@ public class Arrays1 {
     }
 	
 	
-	
+
+
+	//https://leetcode.com/problems/longest-well-performing-interval/
+	public int longestWPI(int[] hours) {
+	    
+	    int max=0;
+	    for(int i=0;i+max<hours.length;i++){
+	        int t=0;
+	        int nt=0;
+	        int k=i;
+	        int c=0;
+	        while(k<hours.length){
+	            if(hours[k]>8)
+	                t++;
+	            else
+	                nt++;
+	            
+	            k++;
+	            c++;
+	            if(t>nt)
+	                max=Math.max(max,c);
+	            
+	        }
+	        //int temp = c;
+	       // System.out.println(max);
+	        
+	    }
+	    
+	    return max;
+	}
 	
 	
 	
