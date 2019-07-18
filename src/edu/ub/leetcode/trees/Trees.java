@@ -281,5 +281,52 @@ public class Trees {
     	        return slow;
     	    }
     	    
+    	    
+    	    
+   //https://leetcode.com/problems/unique-binary-search-trees-ii/ 	    
+    	    
+    	    public List<TreeNode> generateTrees(int n) {
+    	        if(n==0)
+    	            return new ArrayList<TreeNode>();
+    	            
+    	    
+    	        return genTree(1,n);
+    	        
+    	    }
+    	    
+    	    public List<TreeNode> genTree(int start,int end){
+    	        System.out.println(start+" "+end);
+    	        List<TreeNode> res = new ArrayList<>();
+    	        
+    	        if(start>end){
+    	             res.add(null);
+    	             return res;
+    	        }
+    	        if(start==end){
+    	            res.add(new TreeNode(start));
+    	            return res;
+    	        }
+    	           
+    	        for(int i=start;i<=end;i++){
+    	            List<TreeNode> leftTree = genTree(start,i-1);
+    	            List<TreeNode> rightTree = genTree(i+1,end);
+    	            
+    	            for(TreeNode left : leftTree){
+    	                for(TreeNode right : rightTree){
+    	                    TreeNode root = new TreeNode(i);
+    	                    root.left=left;
+    	                    root.right=right;
+    	                    res.add(root);
+    	                }
+    	            }
+    	            
+    	           
+    	        }
+    	        
+    	        
+    	        return res;
+    	    }
+    	    
+    	    
 
 }

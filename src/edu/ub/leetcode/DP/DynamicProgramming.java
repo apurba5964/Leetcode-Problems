@@ -84,5 +84,71 @@ public int rob(int[] nums) {
         
         return res[0];
     }
+    
+    
+    //https://leetcode.com/problems/predict-the-winner/
+    public boolean PredictTheWinner(int[] nums) {
+     
+        if(nums.length==1)
+            return true;
+        int n = nums.length-1;
+        int[][] memo = new int[n+1][n+1];
+        int result = getValue(nums,0,n,memo);
+        //int right = getValue(nums,0,n-1);
+        
+        //System.out.println(left+" "+right);
+        if(result<0)
+            return false;
+        else
+            return true;
+    }
+    
+    
+    public int getValue(int[] arr,int start,int end,int[][] memo){
+        if(start==end)
+            return arr[start];
+        if(memo[start][end]!=0)
+            return memo[start][end];
+        
+        int left = arr[start]-getValue(arr,start+1,end,memo);
+        int right = arr[end]-getValue(arr,start,end-1,memo);
+        
+        memo[start][end]=Math.max(left,right);
+        return Math.max(left,right);
+        
+    }
+    
+    //https://leetcode.com/problems/counting-bits/
+    public int[] countBits(int num) {
+        int[] res = new int[num+1];
+        if(num==0){
+            res[0]=0;
+            return res;
+        }
+            
+        
+        
+      //  int[] res = new int[num+1];
+        
+        res[0]=0;
+        res[1]=1;
+        
+        
+        for(int i=2;i<=num;i=i*2){
+           int start = i;
+           int end = i*2; 
+            if(end>=num){
+            for(int j=start;j<=num;j++)
+               res[j]=res[j-start]+1;
+            }else{
+                 for(int j=start;j<=end;j++)
+               res[j]=res[j-start]+1;
+            }
+            
+        }
+     
+        return res;
+    }
+    
 
 }
