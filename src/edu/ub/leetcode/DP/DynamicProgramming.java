@@ -1,6 +1,8 @@
 package edu.ub.leetcode.DP;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 
 public class DynamicProgramming {
 	
@@ -150,5 +152,219 @@ public int rob(int[] nums) {
         return res;
     }
     
+    
+public int coinChange(int[] coins, int amount) {
+	TreeMap<Integer,Integer> map = new TreeMap<>();
+	
+	
+	
+        if(coins.length==0)
+            return -1;
+        
+        if(amount<1)
+            return amount;
+        
+        int[] memo = new int[amount+1];
+        return getChange(coins,amount,memo);
+    }
+    
+    
+    public int getChange(int[] coins,int amt,int[] memo){
+        if(amt<0)
+            return -1;
+        if(amt==0)
+            return 0;
+        
+        if(memo[amt]!=0)
+            return memo[amt];
+        
+        int min = Integer.MAX_VALUE;
+        for(int coin : coins){
+            int rem = amt-coin;
+         
+            int res = getChange(coins,rem,memo);
+            
+            if(res>=0 && res<min)
+                min = 1 + res;
+        }
+        
+        if(min==Integer.MAX_VALUE)
+            memo[amt]= -1;
+        else
+            memo[amt]=min;
+        
+        return memo[amt];
+    }
+    
+    //https://leetcode.com/problems/minimum-cost-for-tickets/
+    TreeMap<Integer,Integer> map = new TreeMap<>();
+    public int mincostTickets(int[] days, int[] costs) {
+        if(days.length==0 || costs.length==0)
+            return 0;
+        
+        int[] memo = new int[366];
+        
+        
+        for(int day : days)
+            map.put(day,day);
+        
+        return getCost(costs,memo,days[0]);
+        
+        
+    }
+    
+    
+    int getCost(int[] costs,int[] memo,int currDay){
+        
+        
+       // System.out.println(currDay);
+        if(currDay==-1)
+            return 0;
+        
+        if(memo[currDay]!=0)
+            return memo[currDay];
+        
+       // int min = Integer.MAX_VALUE;
+       
+        
+            
+            
+            int d1,d2,d3;
+            if(map.higherKey(currDay)!=null)
+                d1=map.higherKey(currDay);
+            else
+                d1 =-1;
+            int curr2 = currDay+6;
+            
+            if(map.higherKey(curr2)!=null)
+                d2=map.higherKey(curr2);
+            else
+                d2 =-1;
+            
+            int curr3 = currDay+29;
+            
+            if(map.higherKey(curr3)!=null)
+                d3=map.higherKey(curr3);
+            else
+                d3 =-1;
+            
+            
+            int cost1 = costs[0] + getCost(costs,memo,d1);
+            int cost2 = costs[1] + getCost(costs,memo,d2);
+            int cost3 = costs[2] + getCost(costs,memo,d3);
+            
+            int min=Math.min(Math.min(cost1,cost2),cost3);
+            
+            memo[currDay]=min;
+        //System.out.println(cost);
+        return min;
+    }
+  //https://leetcode.com/problems/longest-increasing-subsequence/  
+    public int lengthOfLIS(int[] nums) {
+        
+        int n=nums.length;
+        if(n==0)
+            return 0;
+        
+        int[] res = new int[nums.length];
+        res[0]=1;
+        
+        for(int i=0;i<n;i++){
+            
+                int temp =0;
+                for(int j=i-1;j>=0;j--){
+                    if(nums[j]<nums[i] ){
+                       // min=nums[i]-nums[j];
+                        if(res[j]>temp)
+                            temp=res[j];
+                        //break;
+                    }
+                }
+                res[i]=temp+1;
+            //System.out.println(nums[i]+" "+res[i]);
+                
+        }
+        Arrays.sort(res);
+        
+        return res[n-1];
+    }
+    
+    //https://leetcode.com/problems/maximum-length-of-repeated-subarray/
+    //LCS
+    public int findLength(int[] a, int[] b) {
+        if(a.length==0)
+            return b.length;
+        if(b.length==0)
+            return a.length;
+        
+        int min = Math.min(a.length,b.length);
+        int[][] memo = new int[b.length][a.length];
+        
+            
+        
+       
+        int max=0;
+        
+         
+            for(int i=0;i<b.length;i=i+1){
+            for(int j=0;j<a.length;j=j+1){
+                
+                if(b[i]==a[j] ){
+                    memo[i][j]=1;
+                    if(i-1>=0 && j-1>=0){
+                    memo[i][j]=memo[i-1][j-1]+1;
+                    }
+                    max= Math.max(memo[i][j],max);   
+                }    
+            }
+        }
+           
+        
+        
+        return max;
+    }
+    
+//https://leetcode.com/problems/delete-operation-for-two-strings/
+//LCS(Subsequence)    
+public int minDistance(String a, String b) {
+        
+        if(a.length()==0)
+            return b.length();
+        if(b.length()==0)
+            return a.length();
+        
+        
+        int[][] memo = new int[b.length()][a.length()];
+        
+            
+        
+       
+        int max=0;
+        
+         
+            for(int i=0;i<b.length();i=i+1){
+            for(int j=0;j<a.length();j=j+1){
+                
+                if(b.charAt(i)==a.charAt(j) ){
+                    memo[i][j]=1;
+                    if(i-1>=0 && j-1>=0){
+                     int temp=0;
+                    for(int l=0;l<=i-1;l++){    
+                    for(int k=0;k<=j-1;k++){
+                        if(memo[l][k]>temp)
+                            temp=memo[l][k];
+                    }    
+                    }
+                    memo[i][j]=temp+1;
+                    }
+                    max= Math.max(memo[i][j],max);   
+                }    
+            }
+        }
+        //System.out.println(max);   
+        int res = (a.length()-max)+(b.length()-max);
+        
+        return res;
+    }
 
 }
