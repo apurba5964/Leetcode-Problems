@@ -1,6 +1,7 @@
 package edu.ub.leetcode.trees;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -377,5 +378,66 @@ public void doDFS(HashMap<String,PriorityQueue<String>> map,String src){
 
 
 
+//https://leetcode.com/problems/shortest-path-with-alternating-colors/
+public int[] shortestAlternatingPaths(int n, int[][] r, int[][] b) {
+    
+    Queue<Integer> q = new LinkedList<>();
+   
+    HashMap<Integer,List<Integer>> map = new HashMap<>();
+    
+    
+    for(int i=0;i<r.length;i++){
+        List<Integer> list = map.getOrDefault(r[i][0],new ArrayList<Integer>());
+        list.add(r[i][1]);
+        map.put(r[i][0],list);
+    }
+    
+    for(int i=0;i<b.length;i++){
+        List<Integer> list = map.getOrDefault(b[i][0],new ArrayList<Integer>());
+        list.add(-b[i][1]);
+        map.put(b[i][0],list);
+    }
+    
+    int[] res=new int[n];
+    Arrays.fill(res, -1);
+    res[0]=0;
+    if(!map.containsKey(0))
+        return res;
+    
+    
+    HashSet<Integer> visit=new HashSet<>();
+    q.add(0);
+    int count=0; 
+    while(!q.isEmpty()){
+        int size = q.size();
+        
+        for(int i=0;i<size;i++){
+            int poll= q.poll();
+            if(res[Math.abs(poll)]==-1)
+                res[Math.abs(poll)]=count;
+            
+            if(visit.contains(poll))
+                continue;
+            
+            visit.add(poll);    
+            List<Integer> list = map.get(Math.abs(poll));
+            if(list!=null){
+            for(int j:list){
+            if (poll > 0 && j > 0 || poll < 0 && j < 0)
+                continue;   
+            q.add(j);
+            }
+            }
+            
+        }
+        
+        
+        ++count;
+    }
+    
+    
+   
+    return res;
+}
 
 }

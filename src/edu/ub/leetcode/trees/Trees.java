@@ -328,5 +328,50 @@ public class Trees {
     	    }
     	    
     	    
+    	    
+//https://leetcode.com/problems/minimum-cost-tree-from-leaf-values/    	    
+    	    public int mctFromLeafValues(int[] arr) {
+    	        
+    	        ArrayList<Integer> res = new ArrayList<>();
+    	        
+    	        int sum=0;
+    	         
+    	        for(int i=0;i<arr.length;i++)
+    	            res.add(arr[i]);
+    	              
+    	        
+    	        
+    	        
+    	        while(res.size()>1){
+    	            
+    	            int min=0,check = Integer.MAX_VALUE;
+    	            for(int i=0;i<res.size();i++){
+    	            if(res.get(i)<check){
+    	                
+    	                check=res.get(i);
+    	                min=i;
+    	            }
+    	                
+    	        }
+    	            
+    	            int left = min-1;
+    	            int right = min+1;
+    	            if(left<0)
+    	                sum+=res.get(min)*res.get(right);
+    	            else if(right==res.size())
+    	                sum+=res.get(min)*res.get(left);
+    	            else{
+    	                if(res.get(left)<res.get(right)){
+    	                    sum+=res.get(min)*res.get(left);
+    	                }else
+    	                    sum+=res.get(min)*res.get(right);
+    	            }
+    	            
+    	            res.remove(min);
+    	        }
+    	     
+    	        return sum;
+    	    }
+    	    
 
 }

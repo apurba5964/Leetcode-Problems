@@ -1,6 +1,7 @@
 package edu.ub.leetcode.DP;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -340,8 +341,9 @@ public int minDistance(String a, String b) {
         
        
         int max=0;
+        HashMap<int[],Integer> map = new HashMap<int[],Integer>();
         
-         
+        
             for(int i=0;i<b.length();i=i+1){
             for(int j=0;j<a.length();j=j+1){
                 
