@@ -369,4 +369,39 @@ public int minDistance(String a, String b) {
         return res;
     }
 
+//https://leetcode.com/problems/edit-distance/submissions/
+
+public int minDistance1(String a, String b) {
+    
+    if(a.length()==0 || b.length()==0)
+        return Math.max(a.length(),b.length());
+    
+    if(a.equals(b))
+        return 0;
+    
+    
+    int[][] memo = new int[b.length()+1][a.length()+1];
+    for(int i=0;i<memo[0].length;i++)
+        memo[0][i]=i;
+    
+    for(int i=0;i<memo.length;i++)
+        memo[i][0]=i;
+    
+    for(int i=1;i<=b.length();i++){
+        for(int j=1;j<=a.length();j++){
+            if(a.charAt(j-1)!=b.charAt(i-1)){
+                memo[i][j]=Math.min(Math.min(memo[i-1][j-1],
+                                             memo[i][j-1]),memo[i-1][j])+1;
+                
+            }else
+                memo[i][j]=memo[i-1][j-1];
+            
+        }
+    }
+    
+    
+    
+    return memo[b.length()][a.length()];
+    
+}
 }
