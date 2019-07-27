@@ -404,4 +404,48 @@ public int minDistance1(String a, String b) {
     return memo[b.length()][a.length()];
     
 }
+
+
+
+//https://leetcode.com/problems/is-subsequence/
+public boolean isSubsequence(String s, String t) {
+    /*
+    int fromIndex = 0;
+for (char c : s.toCharArray()) {
+    fromIndex = t.indexOf(c, fromIndex);
+    if (fromIndex++ < 0) {
+        return false;
+    }
+}
+return true;
+    */
+    
+    
+    if(s.length()==0)
+        return true;
+    if(t.length()==0)
+        return false;
+    
+    
+    int[][] memo = new int[s.length()+1][t.length()+1];
+    
+    for(int i=1;i<memo.length;i++){
+        for(int j=1;j<memo[0].length;j++){
+            if(s.charAt(i-1)==t.charAt(j-1)){
+                memo[i][j]=1+Math.min(Math.min(memo[i-1][j],memo[i][j-1])
+                                      ,memo[i-1][j-1]);
+            }else{
+                memo[i][j]=Math.max(Math.max(memo[i-1][j],memo[i][j-1])
+                                      ,memo[i-1][j-1]);
+            }
+                
+        }
+    }
+    
+    if(memo[s.length()][t.length()]==s.length())
+        return true;
+    else
+        return false;
+        
+}
 }

@@ -140,6 +140,152 @@ public class Stacks {
 	        return min;
 	    }
 	
+	    
+	    
+	    
+//https://leetcode.com/problems/largest-rectangle-in-histogram/	    
+	    public int largestRectangleArea(int[] heights) {
+	        if(heights.length<=0)
+	            return 0;
+	     
+	        Stack<Integer> st = new Stack<>();
+	        //st.push(heights[0]);
+	        int max=0;
+	        int area=0;
+	        int i;
+	        for(i=0;i<heights.length;){
+	           
+	            if(st.isEmpty() || heights[i]>=heights[st.peek()]){
+	                   st.push(i);
+	                   i++;
+	                //System.out.println(i);
+	                }
+	            else{
+	            
+	               
+	               
+	                int poll = st.pop();
+	                
+	                
+	                if(st.isEmpty())
+	                    area=heights[poll]*i;
+	                else{
+	                    area=heights[poll]*(i-st.peek()-1);
+	                }
+	                
+	                max=Math.max(area,max);
+	                //System.out.println(area+" max "+max+" poll "+poll);
+	                
+	            }
+	            }
+	              
+	        while(!st.isEmpty()){
+	               
+	                int poll = st.pop();
+	                
+	                
+	                if(st.isEmpty())
+	                    area=heights[poll]*i;
+	                else{
+	                    area=heights[poll]*(i-st.peek()-1);
+	                }
+	                
+	                max=Math.max(area,max);
+	               // System.out.println(area+" max "+max+" poll "+poll);
+	                
+	            }
+	        
+	        
+	        return max;
+	    }
 	
 
+	    
+//https://leetcode.com/problems/maximal-rectangle/	    
+	    public int maximalRectangle(char[][] matrix) {
+	        
+	        
+	        if(matrix.length==0)
+	            return 0;
+	        
+	        int m=matrix.length;
+	        int n=matrix[0].length;
+	        int areaR=0;
+	        int maxR=0;
+	        
+	        int[] memo =new  int[n];
+	     
+	        for(int i=0;i<m;i++){
+	            for(int j=0;j<n;j++){
+	               int x = Character.getNumericValue(matrix[i][j]);
+	               if(x>0) 
+	                    memo[j] += x; 
+	                else
+	                    memo[j] = 0;
+	                //System.out.print(memo[j]+" ");
+	                //System.out.println(" ");
+	            }
+	            areaR = largestRectangleArea(memo);
+	            maxR=Math.max(maxR,areaR);
+	        }
+	        
+	        return maxR;
+	    }
+	    
+	    
+	    
+	    
+//https://leetcode.com/problems/gas-station/	    
+	    public int canCompleteCircuit(int[] gas, int[] cost) {
+	        int g=0,c=0;
+	        int n = gas.length;
+	        for(int i=0;i<gas.length;i++){
+	            g+=gas[i];
+	            c+=cost[i];
+	        }
+	        if(g<c)
+	            return -1;
+	        
+	        int index=-1;
+	        
+	        for(int i=0;i<gas.length;i++){
+	            int start = i;
+	            if(gas[start]>=cost[start]){
+	              // System.out.println(start);
+	                int j=(start+1)%n;
+	                int fuel=gas[start];
+	                while(true){
+	                    
+	                    int prev = j-1;
+	                    if(prev<0)
+	                        prev=n-1;
+	                    
+	                    fuel = fuel-cost[prev]+gas[j];
+	                    
+	                    if(fuel<cost[j]){
+	                        i=start+1;
+	                        break;
+	                    }
+	                  //  System.out.println(j+" "+fuel);
+	                    j++;
+	                    if(j>=n)
+	                        j=j%n;
+	                    
+	                   if(j==start){
+	                       index=start;
+	                      return index;
+	                   }
+	                       
+	                }
+	                
+	                    
+	               // System.out.println(index);
+	                
+	            }
+	        }
+	        
+	        return index;
+	    }
+	    	    
+		
 }
