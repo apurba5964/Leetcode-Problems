@@ -448,4 +448,59 @@ return true;
         return false;
         
 }
+
+//https://leetcode.com/problems/stone-game-ii/
+
+
+
+public int stoneGameII(int[] piles) {
+    
+    if(piles.length==2)
+        return piles[0]+piles[1];
+    
+    int n = piles.length;
+    int[][][] memo=new int[n+1][2*n+1][2];
+    int result = getScore(piles,0,n,memo,1,0);
+    
+    return result;
+}
+
+public int getScore(int[] arr,int start,int end,int[][][] memo,int m,int turn){
+    if(start>=end)
+        return 0;
+    
+    if(memo[start][m][turn]!=0)
+        return memo[start][m][turn];
+    
+    int j=1,sum=0,max=0;
+    if(turn==0)
+       max=Integer.MIN_VALUE;
+    else
+       max=Integer.MAX_VALUE;
+    
+    while(j<=2*m && start+j<=end){
+        sum+=arr[start+j-1];
+        //System.out.println(sum);
+       
+        int score = getScore(arr,start+j,end,memo,Math.max(j,m),turn^1);
+        
+        if(turn==0){
+           max = Math.max(max,sum+score);
+          // memo[start][end]=max;
+        }else{
+           
+            max = Math.min(max,score);
+            //memo[start][end]=max;
+        }
+         
+        // System.out.println(max);
+         //memo[start+j][Math.max(j,m)]=max;
+        j++;
+                
+    }
+ 
+    //memo[start][m]=max;
+    
+    return memo[start][m][turn]=max;
+}
 }

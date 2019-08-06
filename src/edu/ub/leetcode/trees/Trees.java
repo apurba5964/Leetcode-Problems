@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeMap;
 
 import edu.ub.leetcode.linkedlist.LinkedList.ListNode;
 
@@ -372,6 +373,72 @@ public class Trees {
     	     
     	        return sum;
     	    }
+  //https://leetcode.com/problems/binary-tree-coloring-game/
     	    
+    	    
+    	    int lcount=0;
+    	    int rcount=0;
+    	    public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
+    	        if(root==null)
+    	            return false;
+    	        
+    	        getCount(root,x);
+    	        //System.out.println(lcount+" "+rcount);
+    	        if(lcount+rcount<n/2)
+    	            return true;
+    	        if(lcount>n/2 || rcount>n/2)
+    	            return true;
+    	        
+    	        return false;
+    	    }
+    	    
+    	    
+    	    public int getCount(TreeNode root,int x){
+    	        
+    	        if(root==null)
+    	            return 0;
+    	        int left = getCount(root.left,x);
+    	        int right = getCount(root.right,x);
+    	        
+    	        
+    	        if(root.val==x){
+    	            lcount = left;
+    	            rcount = right;
+    	        }
+    	        //System.out.println(left+" "+right);
+    	        return 1 + left + right;
+    	    }
+}
 
+
+
+
+
+class SnapshotArray {
+
+    int[] input;
+    int snap=0;
+    TreeMap<Integer,int[]> map = new TreeMap<>();
+    
+    
+    public SnapshotArray(int length) {
+        input = new int[length];
+    }
+    
+    public void set(int index, int val) {
+        input[index] = val;
+    }
+    
+    public int snap() {
+    	
+        snap++;
+        map.put(snap-1,input);
+        int [] newI= input.clone();
+        return snap-1;
+    }
+    
+    public int get(int index, int snap_id) {
+        int[] check = map.get(snap_id);
+        return check[index];
+    }
 }
