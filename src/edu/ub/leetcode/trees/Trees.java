@@ -442,3 +442,83 @@ class SnapshotArray {
         return check[index];
     }
 }
+
+
+
+class Trie {
+
+    
+    
+    class Node {
+		 char ch;
+        HashMap<Character,Node> map;
+		 
+        Node(char c) {
+			ch = c;
+           map = new HashMap<>(); 
+		 }
+   }
+   Node root,curr;
+   /** Initialize your data structure here. */
+   public Trie() {
+       root = new Node('1');
+       
+   }
+   
+   /** Inserts a word into the trie. */
+   public void insert(String word) {
+       curr=root;
+       for(int i=0;i<word.length();i++){
+           if(curr.map.containsKey(word.charAt(i))){
+             curr=curr.map.get(word.charAt(i));
+               
+           }else{
+               Node node = new Node(word.charAt(i));
+               curr.map.put(word.charAt(i),node);
+               curr=node;
+           }
+       }
+       curr.map.put('0',null);
+       
+   }
+   
+   /** Returns if the word is in the trie. */
+   public boolean search(String word) {
+       curr=root;
+       for(int i=0;i<word.length();i++){
+           if(curr.map.containsKey(word.charAt(i))){
+             curr=curr.map.get(word.charAt(i));
+             continue;  
+           }else{
+               return false;
+           }
+       }
+       if(curr.map.containsKey('0'))
+           return true;
+       else
+           return false;
+   }
+   
+   /** Returns if there is any word in the trie that starts with the given prefix. */
+   public boolean startsWith(String word) {
+    curr=root;
+       for(int i=0;i<word.length();i++){
+           if(curr.map.containsKey(word.charAt(i))){
+             curr=curr.map.get(word.charAt(i));
+             continue;  
+           }else{
+               return false;
+           }
+       }
+       return true;
+        
+   }
+}
+
+/**
+* Your Trie object will be instantiated and called as such:
+* Trie obj = new Trie();
+* obj.insert(word);
+* boolean param_2 = obj.search(word);
+* boolean param_3 = obj.startsWith(prefix);
+*/
