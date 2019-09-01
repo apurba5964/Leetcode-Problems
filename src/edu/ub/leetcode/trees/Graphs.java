@@ -1,5 +1,6 @@
 package edu.ub.leetcode.trees;
 
+import java.beans.Visibility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -438,6 +439,232 @@ public int[] shortestAlternatingPaths(int n, int[][] r, int[][] b) {
     
    
     return res;
+}
+
+
+
+int max=Integer.MIN_VALUE;
+int[][] dirs1 = {{1,0},{0,1}};
+public int calculateMinimumHP(int[][] dungeon) {
+   
+    int m = dungeon.length;
+    int n = dungeon[0].length;
+    
+   // int[][] visit = new int[m][n];
+    doDFS(0,0,m,n,dungeon,0,0);
+    return max;
+}
+
+
+public void doDFS(int x,int y,int m,int n,int[][] dungeon,int neg,int pos){
+    
+    if(x<0 || y<0 || x>=m || y>=n )
+        return;
+
+    
+    if(x==m-1 && y==n-1){
+         max = Math.max(max,neg);
+    }
+    
+    if(dungeon[x][y]<0 && pos==0){
+        neg+=dungeon[x][y];
+    }else if(dungeon[x][y]<0 && pos>0){
+        pos-= dungeon[x][y];
+    }else{
+        pos+=dungeon[x][y];
+    }
+    
+
+for(int[] dir:dirs1){
+    doDFS(x+dir[0],y+dir[1],m,n,dungeon,neg,pos);
+}    
+    
+    
+}
+
+
+// Treasure Islands
+
+
+public int TreasureIslands(char[][] map) {
+	if(map[0][0]=='X')
+		return 0;
+	if(map.length==0 || map[0].length==0 || map[0][0]=='D')
+		return -1;
+	int m = map.length,n=map[0].length;
+	Queue<int[]> q = new LinkedList();
+	
+	q.add(new int[] {0,0});
+	int step=0;
+	while(!q.isEmpty()) {
+		int size = q.size();
+		for(int i=0;i<size;i++) {
+			int[] point = q.poll();
+			for(int[] dir:dirs) {
+				int x = point[0]+dir[0];
+				int y = point[1]+dir[1];
+				if(x<0 || y<0 || x>=m || y>=n || map[x][y]=='D')
+					continue;
+				
+				if(map[x][y]=='X')
+					return step;
+				
+				q.add(new int[] {x,y});
+				map[x][y]='D';
+			}
+		}
+		step++;
+	}
+	
+	
+	return -1;
+	
+}
+
+
+
+//public static final int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+public int cutOffTree(List<List<Integer>> forest) {
+ 
+    if(forest.get(0).get(0)==0)
+        return -1;
+    
+    if(forest.size()==0 || forest.get(0).size()==0)
+        return 0;
+    
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[2]-b[2]);
+    for(int i=0;i<forest.size();i++){
+        for(int j=0;j<forest.get(0).size();j++){
+            if(forest.get(i).get(j)>1)
+                pq.add(new int[] {i,j,forest.get(i).get(j)});
+        }
+    }
+    int[] start = {0,0};
+    int sum = 0;
+    
+    while(!pq.isEmpty()){
+        
+        int[] point = pq.poll();
+        
+        System.out.println(point[2]);
+        int step = getStepCount(start,point,forest);
+        System.out.println(step);
+        if(step<0)
+            return -1;
+        start[0]=point[0];
+        start[1]=point[1];
+        //start[2]=point[2];
+        sum+=step;
+    }
+    
+    
+    return sum;
+}
+
+
+public int getStepCount(int[] start,int[] target,List<List<Integer>> forest){
+    int m = forest.size(),n=forest.get(0).size();
+     boolean[][] visited = new boolean[m+1][n+1]; 
+     visited[start[0]][start[1]] = true;
+    Queue<int[]> q = new LinkedList();
+    q.add(start);
+    
+    int walk = 0;
+    while(!q.isEmpty()){
+        int size = q.size();
+        for(int i=0;i<size;i++){
+            int[] point = q.poll();
+            if(point[0]==target[0] && point[1]==target[1])
+                    return walk;
+            for(int[] dir : dirs){
+                int x = point[0]+dir[0];
+                int y = point[1]+dir[1];
+                //int val = point[2];
+                
+                if(x<0 || y<0 || x>=m || y>=n || forest.get(x).get(y)==0
+                  || visited[x][y])
+				    continue;
+                
+                q.add(new int[] {x,y});
+                //forest.get(x).set(y,0);
+                visited[x][y]=true;
+            }
+        }
+        walk++;
+    }
+    return -1;
+}
+
+
+
+
+public List<String> invalidTransactions(String[] transactions) {
+    
+    HashSet<String> res = new HashSet<>();
+    HashMap<String,String[]> map = new HashMap<>();
+    for(String s : transactions){
+        String[] curr = s.split(",");
+        if(Integer.valueOf(curr[2])>1000)
+        	res.add(s);
+        else {
+        	if(map.containsKey(curr[0])) {
+        		if(map.get(curr[0])[3]!=curr[3] && 
+        				Math.abs(Integer.valueOf(curr[1])- Integer.valueOf(map.get(curr[0])[1])) <60) {
+        			res.add(s);
+        			String s1 = "";
+        			for(String k : map.get(curr[0]))
+        				s1+=k+",";
+        			
+        			res.add(s1.substring(0, s1.length()-1));
+        			
+        		}
+        		
+        	}
+        	
+        	
+        	
+        }
+        map.put(curr[0], curr);
+    }
+ 
+    return new ArrayList<>(res);
+}
+
+
+public int minimumCost(int N, int[][] connections) {
+    
+    HashSet<Integer> set = new HashSet<>();
+    HashMap<Integer,List<int[]>> map = new HashMap<>();
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[2]-b[2]);
+    
+    for(int[] con : connections){
+       int node = con[0], child= con[1],cost=con[2];	
+       map.computeIfAbsent(node, (k) -> new ArrayList<int[]>());
+       map.get(node).add(new int[] {child,cost});
+       map.get(child).add(new int[] {node,cost});
+       
+    }
+    pq.add(new int[] {1,1,0});
+    int cost=0;
+    while(!pq.isEmpty()) {
+    	int[] poll = pq.poll();
+    	
+    	List<int[]> childs = map.get(poll[0]);
+    	
+    	for(int i=0;i<childs.size();i++) {
+    		if(!set.contains(childs.get(i)[1])) {
+    			cost+=childs.get(i)[2];
+    			pq.addAll(map.get(childs.get(i)));
+    			set.add(childs.get(i)[1]);
+    			
+    		}
+    	}
+    	
+    	
+    }
+    
+    return set.size()==N ? cost : -1;
+    
 }
 
 }

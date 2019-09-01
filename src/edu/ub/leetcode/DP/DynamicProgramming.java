@@ -503,4 +503,35 @@ public int getScore(int[] arr,int start,int end,int[][][] memo,int m,int turn){
     
     return memo[start][m][turn]=max;
 }
+
+
+
+//https://leetcode.com/problems/partition-equal-subset-sum/submissions/
+public boolean canPartition(int[] nums) {
+	TreeMap<Integer,Integer> map = new TreeMap<>();
+	map.keySet();
+	
+    int sum=0;
+    for(int i:nums)
+        sum+=i;
+    if(sum%2!=0)
+        return false;
+    
+    Arrays.sort(nums);
+    return recur(nums,sum/2,0,nums.length-1);
+    
+}
+
+ public boolean recur(int[] nums,int req,int curr,int index) {
+    if(index==-1)
+        return false;
+    if(curr==req)
+        return true;
+    if(curr+nums[index]>req)
+        return false;
+     
+	return (recur(nums,req,curr+nums[index],index-1) || recur(nums,req,curr,index-1));
+	
+}
+
 }
